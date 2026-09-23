@@ -1,0 +1,7 @@
+# Prisma AI Skills y carpetas de agentes
+.claude/
+.windsurf/
+.agents/
+
+# Docker Compose file
+docker-compose.yml
