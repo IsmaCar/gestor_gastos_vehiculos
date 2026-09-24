@@ -11,3 +11,63 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+
+enum VehicleType {
+  coche
+  moto
+  furgoneta
+}
+
+enum ExpenseCategory {
+  combustible
+  taller
+  material
+  ITV
+  seguro
+  otros
+}
+
+
+model User {
+  id       Int    @id @default(autoincrement())
+  username String @unique
+  email    String @unique
+  password String
+
+  vehicles Vehicle[]
+
+  @@map("users")
+}
+
+
+model Vehicle {
+  id         Int         @id @default(autoincrement())
+  userId     Int
+  licenPlate String?
+  brand      String
+  model      String
+  kmAct      Int
+  type       VehicleType @default(coche)
+
+  user     User      @relation(fields: [userId], references: [id])
+  expenses Expense[]
+
+  @@map("vehicles")
+}
+
+
+model Expense {
+  id        Int      @id @default(autoincrement())
+  vehicleId Int
+  category  ExpenseCategory @default(combustible)
+  concept   String
+  import    Float
+  date      DateTime
+  kms       Int?
+  billUrl   String?
+
+  vehicle Vehicle @relation(fields: [vehicleId], references: [id])
+
+  @@map("expenses")
+}
