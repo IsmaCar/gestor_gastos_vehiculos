@@ -22,7 +22,6 @@ enum VehicleType {
 enum ExpenseCategory {
   combustible
   taller
-  material
   ITV
   seguro
   otros
