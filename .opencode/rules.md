@@ -36,3 +36,11 @@ All tests in the suite (unit and E2E) must be structured using the AAA pattern:
 
 - Initialize the application (`app.init()`) inside the `beforeEach` block.
 - Ensure the application is closed (`app.close()`) in the `afterEach` block to prevent memory leaks during test execution.
+
+## 5. Skeleton-First Policy (Learning by Doing)
+
+- By default, the AI must provide only the **skeleton/scaffolding** of the code: test suites (E2E), controllers, services, modules, DTOs, etc., with the correct structure, signatures and `describe`/`it` blocks, but **without** the actual business logic implementation (use placeholders like `TODO` or throw `Not implemented` where the logic would go).
+- Before generating any code, the AI **must ask** the user whether they want:
+  1. Only the skeleton, so the user implements the logic themselves (recommended, for learning purposes), or
+  2. The full implementation done by the AI.
+- If the user does not specify a preference, the AI must ask before proceeding, rather than assuming either option.
