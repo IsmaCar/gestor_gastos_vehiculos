@@ -49,6 +49,7 @@ model Vehicle {
   model      String
   kmAct      Int
   type       VehicleType @default(coche)
+  active     Boolean     @default(true)
 
   user     User      @relation(fields: [userId], references: [id])
   expenses Expense[]
