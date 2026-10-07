@@ -5,12 +5,11 @@ import { buildValidPayload } from '../../auth/helpers/payload.helper'
 /**
  * Registers a brand-new user and logs them in, returning their JWT.
  *
- * TODO: reuse `buildValidPayload` (from the auth helpers) to register a
- * user via `POST /api/auth/register`, then log in via `POST /api/auth/login`
- * and return `{ accessToken, userId }` so vehicle e2e tests can:
- *   - send `Authorization: Bearer <accessToken>` on protected requests.
- *   - assert that a created vehicle's `userId` matches this user, not a
- *     value forged in the request body (Scenario 1).
+ * Reuses `buildValidPayload` (from the auth helpers) so the created user
+ * follows the same `user_` naming convention cleaned up by
+ * `cleanupTestUsers`. Vehicle e2e tests use the returned `accessToken` to
+ * authenticate requests and `userId` to assert the vehicle's real owner
+ * (Scenario 1).
  */
 export const createAuthenticatedUser = async (
   app: INestApplication,
