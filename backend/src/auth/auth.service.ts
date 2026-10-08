@@ -26,7 +26,7 @@ export class AuthService {
       where: { OR: [{ email }, { username }] }
     });
 
-    if(existing) throw new ConflictException('User already exists')
+    if(existing) throw new ConflictException('Este usuario ya está registrado')
 
 
     const hashedPassword = await argon2.hash(password, {
@@ -48,7 +48,7 @@ export class AuthService {
       return sanitizedUser;
     } catch (error) {
       if(error instanceof PrismaClientKnownRequestError && error.code === 'P2002') {
-        throw new ConflictException('User already exists')
+        throw new ConflictException('El usuario ya existe')
       }
       throw error
     }
@@ -65,7 +65,7 @@ export class AuthService {
     const isPasswordValid = await argon2.verify(hashToVerify, password);
 
     if (!user || !isPasswordValid) {
-      throw new UnauthorizedException('Invalid credentials');
+      throw new UnauthorizedException('Credenciales inválidas');
     }
 
     const access_token = this.jwtService.sign({ sub: user.id, email: user.email });
