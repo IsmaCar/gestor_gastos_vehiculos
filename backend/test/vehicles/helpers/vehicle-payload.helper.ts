@@ -11,4 +11,5 @@ export const buildValidVehiclePayload = () => ({
   brand: `Seat`,
   model: `leon`,
   kmAct: 340000,
+  type: 'coche',
 });
