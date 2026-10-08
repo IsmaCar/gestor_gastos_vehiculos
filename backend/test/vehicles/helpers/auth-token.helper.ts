@@ -27,5 +27,5 @@ export const createAuthenticatedUser = async (
   .send({email: payload.email, password: payload.password})
   .expect(200)
 
-  return { accessToken: loginResponse.body.access_token, userId: registerResponse.body.userId}
+  return { accessToken: loginResponse.body.access_token, userId: registerResponse.body.id}
 };
