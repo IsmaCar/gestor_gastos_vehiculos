@@ -76,3 +76,17 @@ Uniqueness of `licenPlate` is enforced at the database level with a **partial un
 - **Given** a vehicle owned by `User A` with `licenPlate = "1234ABC"` that has since been deregistered (`active = false`).
 - **When** `User B` registers a new vehicle via `POST /api/vehicles` using the same `licenPlate`.
 - **Then** the API must accept the registration with `201 Created`, since no other **active** vehicle currently holds that plate.
+
+### Scenario 5: Listing Own Vehicles
+
+- **Given** two authenticated users, each owning at least one vehicle.
+- **When** a user sends a request to `GET /api/vehicles`.
+- **Then** the API must respond with `200 OK` and a list containing only the vehicles owned by that authenticated user, never vehicles belonging to other users.
+
+### Scenario 6: Fetching a Single Vehicle Scoped to Its Owner
+
+- **Given** an authenticated user who owns a vehicle, and a second user who does not own it.
+- **When** the owner sends a request to `GET /api/vehicles/:id` for that vehicle.
+- **Then** the API must respond with `200 OK` and the matching vehicle.
+- **When** the non-owner sends a request to `GET /api/vehicles/:id` for the same vehicle id.
+- **Then** the API must respond with `404 Not Found`, never exposing data belonging to another user.
